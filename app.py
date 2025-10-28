@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 from flask_cors import CORS
 import json
 import os
@@ -113,6 +113,18 @@ def api_apps():
             'error': 'Internal server error',
             'message': str(e)
         }), 500
+
+
+@app.route('/whatsapp')
+def whatsapp():
+    """Redirect to WhatsApp group"""
+    return redirect("https://chat.whatsapp.com/Hre9DcY71UvC32oMVwwUrE", code=302)
+
+@app.route('/discord')
+def discord():
+    """Redirect to Discord server"""
+    return redirect("https://discord.gg/DhPZ8uMv4v", code=302)
+
 
 
 @app.errorhandler(404)
