@@ -148,17 +148,24 @@
             border-bottom: 1px solid rgba(33, 242, 255, 0.1);
             z-index: 1000;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(0);
-            opacity: 1;
-            animation: navSlideDown 0.6s ease-out;
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav.loaded {
+            animation: navSlideDown 0.8s ease-out forwards;
+            animation-delay: 0.3s;
         }
 
         @keyframes navSlideDown {
-            from {
+            0% {
                 transform: translateY(-100%);
                 opacity: 0;
             }
-            to {
+            60% {
+                transform: translateY(10px);
+            }
+            100% {
                 transform: translateY(0);
                 opacity: 1;
             }
@@ -309,18 +316,21 @@
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 3rem;
             margin-bottom: 2rem;
+            text-align: center;
         }
 
         .footer-brand {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            align-items: center;
         }
 
         .footer-logo {
             display: flex;
             align-items: center;
             gap: 12px;
+            justify-content: center;
         }
 
         .footer-logo img {
@@ -338,6 +348,12 @@
             background-clip: text;
         }
 
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .footer-section h3 {
             color: var(--accent);
             margin-bottom: 1rem;
@@ -349,10 +365,14 @@
             color: var(--text-secondary);
             line-height: 1.7;
             font-size: 0.9rem;
+            max-width: 500px;
         }
 
         .footer-links {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .footer-links li {
@@ -371,7 +391,7 @@
 
         .footer-links a:hover {
             color: var(--accent);
-            padding-left: 5px;
+            transform: translateX(5px);
         }
 
         .footer-links a i {
@@ -512,15 +532,40 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 2.5rem;
+                padding: 0 1rem;
             }
 
             .footer-brand {
                 grid-column: 1;
+                padding-bottom: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .footer-section {
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(33, 242, 255, 0.1);
+            }
+
+            .footer-section:last-of-type {
+                border-bottom: none;
+            }
+
+            .footer-brand p {
+                font-size: 0.85rem;
+                line-height: 1.6;
             }
 
             footer {
-                padding: 2.5rem 1.5rem 1.5rem;
+                padding: 2.5rem 1rem 1.5rem;
+            }
+
+            .footer-logo img {
+                height: 40px;
+            }
+
+            .footer-logo-text {
+                font-size: 1.35rem;
             }
         }
 
@@ -542,11 +587,11 @@
             }
 
             .footer-logo img {
-                height: 38px;
+                height: 36px;
             }
 
             .footer-logo-text {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
 
             .nav-links {
@@ -555,7 +600,29 @@
             }
 
             footer {
-                padding: 2rem 1rem 1rem;
+                padding: 2rem 0.8rem 1rem;
+            }
+
+            .footer-content {
+                gap: 2rem;
+                padding: 0 0.5rem;
+            }
+
+            .footer-section h3 {
+                font-size: 1rem;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem;
+                padding: 1.5rem 0.5rem 0;
+            }
+
+            .footer-brand p {
+                font-size: 0.8rem;
             }
         }
 
@@ -641,14 +708,6 @@
                     <li><a href="https://discord.gg/DhPZ8uMv4v" target="_blank"><i class="fa-brands fa-discord"></i> Discord Server</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h3>Information</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
-                    <li><a href="#"><i class="fa-solid fa-file-contract"></i> Terms of Service</a></li>
-                    <li><a href="#"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
-                </ul>
-            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 NetZone. All Rights Reserved. | Next-Gen V2Ray Infrastructure</p>
@@ -657,10 +716,14 @@
     </footer>
 
     <script>
-        // Loading screen
+        // Loading screen with navbar animation trigger
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading-screen').classList.add('hidden');
+                // Trigger navbar animation after loading screen disappears
+                setTimeout(() => {
+                    document.getElementById('navbar').classList.add('loaded');
+                }, 100);
             }, 800);
         });
 
